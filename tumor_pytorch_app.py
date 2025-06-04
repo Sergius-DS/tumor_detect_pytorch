@@ -7,6 +7,7 @@ import tempfile
 from PIL import Image
 import os
 import base64
+import numpy as np
 
 # Path to your background image
 background_image_path = "medical_laboratory.jpg"
