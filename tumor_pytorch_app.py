@@ -70,7 +70,11 @@ def load_model_from_url(model_url):
     # Load the model architecture
     model = models.resnet50(pretrained=False)
     num_ftrs = model.fc.in_features
-    model.fc = torch.nn.Linear(num_ftrs, 2)  # 2 classes: Healthy, Tumor
+    model.fc = torch.nn.Sequential(
+    nn.Dropout(0.5),
+    nn.Linear(num_ftrs, 1),
+    nn.Sigmoid()
+)
     
     # Load trained weights with strict=False
     state_dict = torch.load(model_path, map_location=torch.device('cpu'))
