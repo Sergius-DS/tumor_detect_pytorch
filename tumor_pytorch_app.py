@@ -3,13 +3,11 @@ import torch
 import torchvision.transforms as transforms
 from torchvision import models
 import requests
-import tempfile
+import base64
 from PIL import Image
 import os
-import base64
-import numpy as np
 
-# Path to your background image
+# Path a tu imagen de fondo
 background_image_path = "medical_laboratory.jpg"
 
 def get_base64_image(image_path):
@@ -57,37 +55,30 @@ def set_background(image_path):
 
 set_background(background_image_path)
 
-# Define your class labels
+# Etiquetas de clases
 class_labels = ["Healthy", "Tumor"]
 
 @st.cache(allow_output_mutation=True)
-def load_model_from_url(model_url):
-    model_path = 'best_model_final.pth'
-    # Download the model
-    r = requests.get(model_url)
-    with open(model_path, 'wb') as f:
-        f.write(r.content)
-    # Load the model architecture
+def load_model():
+    # Cargar la arquitectura
     model = models.resnet50(pretrained=False)
     num_ftrs = model.fc.in_features
+    # Ajustar la capa final para salida binaria con Sigmoid
     model.fc = torch.nn.Sequential(
-    nn.Dropout(0.5),
-    nn.Linear(num_ftrs, 1),
-    nn.Sigmoid()
-)
-    
-    # Load trained weights with strict=False
-    state_dict = torch.load(model_path, map_location=torch.device('cpu'))
-    model.load_state_dict(state_dict, strict=True)
+        torch.nn.Dropout(0.5),
+        torch.nn.Linear(num_ftrs, 1),
+        torch.nn.Sigmoid()
+    )
+    # Cargar pesos
+    model.load_state_dict(torch.load('best_model_final.pth', map_location=torch.device('cpu')))
     model.eval()
     return model
 
-model_url = 'https://raw.githubusercontent.com/Sergius-DS/tumor_detect_pytorch/master/best_model_final.pth'
+# Carga del modelo
+with st.spinner("Cargando modelo... Esto puede tardar un momento."):
+    model = load_model()
 
-with st.spinner("Loading model... This might take a moment."):
-    model = load_model_from_url(model_url)
-
-# Define transformations matching your training
+# Transformaciones iguales a las de entrenamiento
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
@@ -95,19 +86,19 @@ transform = transforms.Compose([
                          [0.229, 0.224, 0.225]),
 ])
 
-# Streamlit UI
+# Interfaz de usuario
 st.markdown("""
 <div class="main-title">
-    <h1>🧠 Deep Learning for Detecting Brain Tumour 🔎</h1>
+    <h1>🧠 Detección de Tumor Cerebral con Deep Learning 🔎</h1>
 </div>
 """, unsafe_allow_html=True)
 
 col1, col2 = st.columns([1, 1])
 
 with col1:
-    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-    predict_button = st.button("Predict")
-    # Reset prediction if new file is uploaded
+    uploaded_file = st.file_uploader("Elige una imagen...", type=["jpg", "jpeg", "png"])
+    predict_button = st.button("Predecir")
+    # Mantener la imagen cargada si ya se cargó
     if uploaded_file:
         if st.session_state.get('uploaded_image') != uploaded_file:
             st.session_state['uploaded_image'] = uploaded_file
@@ -120,34 +111,36 @@ with col1:
 with col2:
     if uploaded_file:
         image = Image.open(uploaded_file).convert('RGB')
-        st.image(image, caption='Uploaded Image.', width=240)
+        st.image(image, caption='Imagen cargada.', width=240)
 
-# Prediction logic
+# Predicción
 if predict_button and uploaded_file:
     image = Image.open(uploaded_file).convert('RGB')
     input_tensor = transform(image)
-    input_batch = input_tensor.unsqueeze(0)  # Create mini-batch
+    input_batch = input_tensor.unsqueeze(0)  # Mini-batch
 
     with torch.no_grad():
         output = model(input_batch)
-        probs = torch.nn.functional.softmax(output, dim=1)
-        probs = probs.numpy()[0]
-        predicted_index = np.argmax(probs)
-        predicted_class = class_labels[predicted_index]
-        confidence = probs[predicted_index]
+        prob = output.item()  # valor entre 0 y 1
+        if prob > 0.5:
+            predicted_class = "Tumor"
+            confidence = prob
+        else:
+            predicted_class = "Healthy"
+            confidence = 1 - prob
 
-    # Save prediction to session state
+    # Guardar en estado de sesión
     st.session_state['prediction'] = {
         'class': predicted_class,
         'confidence': confidence
     }
 
-# Display prediction result
+# Mostrar resultado
 if st.session_state.get('prediction'):
     pred = st.session_state['prediction']
     st.markdown(f"""
     <div class="prediction-box">
-        <h3>Prediction Result:</h3>
-        <p><strong>{pred['class']}</strong> with confidence <strong>{pred['confidence']*100:.2f}%</strong></p>
+        <h3>Resultado de la Predicción:</h3>
+        <p><strong>{pred['class']}</strong> con confianza <strong>{pred['confidence']*100:.2f}%</strong></p>
     </div>
     """, unsafe_allow_html=True)
