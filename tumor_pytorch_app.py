@@ -70,8 +70,10 @@ def load_model_from_url(model_url):
     model = models.resnet50(pretrained=False)
     num_ftrs = model.fc.in_features
     model.fc = torch.nn.Linear(num_ftrs, 2)  # 2 classes: Healthy, Tumor
-    # Load trained weights
-    model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
+    
+    # Load trained weights with strict=False
+    state_dict = torch.load(model_path, map_location=torch.device('cpu'))
+    model.load_state_dict(state_dict, strict=False)
     model.eval()
     return model
 
