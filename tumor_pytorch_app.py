@@ -74,7 +74,7 @@ def load_model_from_url(model_url):
     
     # Load trained weights with strict=False
     state_dict = torch.load(model_path, map_location=torch.device('cpu'))
-    model.load_state_dict(state_dict, strict=False)
+    model.load_state_dict(state_dict, strict=True)
     model.eval()
     return model
 
