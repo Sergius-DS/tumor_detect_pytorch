@@ -34,7 +34,7 @@ def set_background(image_path):
 set_background(background_image_path)
 
 # Function to download and load PyTorch model from Google Drive
-@st.cache(allow_output_mutation=True)
+@st.cache_data
 def load_pytorch_model_from_gdrive(file_id):
     url = f'https://drive.google.com/uc?id={file_id}'
     with tempfile.NamedTemporaryFile(suffix=".pth", delete=False) as tmp_file:
