@@ -26,7 +26,30 @@ def set_background(image_path):
         background-repeat: no-repeat;
         background-attachment: fixed;
     }}
-    /* ... other styles ... */
+    .main-title {{
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+        text-align: center;
+    }}
+    .prediction-box {{
+        background-color: rgba(255, 255, 255, 0.95);
+        padding: 15px;
+        border-radius: 8px;
+        margin: 10px 0;
+        border-left: 4px solid #1f77b4;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }}
+    .stFileUploader > div {{
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 10px;
+        border-radius: 8px;
+    }}
+    .stAlert {{
+        background-color: rgba(255, 255, 255, 0.95) !important;
+    }}
     </style>
     """
     st.markdown(css, unsafe_allow_html=True)
