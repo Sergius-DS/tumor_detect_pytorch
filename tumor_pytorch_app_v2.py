@@ -51,7 +51,7 @@ def load_pytorch_model_from_gdrive(file_id):
     return model
 
 # Your Google Drive file ID for the model
-model_file_id = 'YOUR_FILE_ID_HERE'  # Replace with your actual file ID
+model_file_id = '1DbD-05UT7n68K1lPHgVw82HVN5dleezg'  # Replace with your actual file ID
 
 # Load model
 with st.spinner("Loading model from Google Drive..."):
