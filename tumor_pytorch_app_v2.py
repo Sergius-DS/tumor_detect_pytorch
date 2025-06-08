@@ -1,5 +1,6 @@
 import streamlit as st
 import gdown
+import base64
 import os
 import tempfile
 import torch
