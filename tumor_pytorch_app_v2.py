@@ -56,4 +56,71 @@ model_file_id = 'YOUR_FILE_ID_HERE'  # Replace with your actual file ID
 # Load model
 with st.spinner("Loading model from Google Drive..."):
     model = load_pytorch_model_from_gdrive(model_file_id)
+
+# Transformaciones iguales a las de entrenamiento
+transform = transforms.Compose([
+    transforms.Resize((224, 224)),
+    transforms.ToTensor(),
+    transforms.Normalize([0.485, 0.456, 0.406],
+                         [0.229, 0.224, 0.225]),
+])
+
+# Interfaz de usuario
+st.markdown("""
+<div class="main-title">
+    <h1>🧠 Detección de Tumor Cerebral con Deep Learning 🔎</h1>
+</div>
+""", unsafe_allow_html=True)
+
+col1, col2 = st.columns([1, 1])
+
+with col1:
+    uploaded_file = st.file_uploader("Elige una imagen...", type=["jpg", "jpeg", "png"])
+    predict_button = st.button("Predecir")
+    # Mantener la imagen cargada si ya se cargó
+    if uploaded_file:
+        if st.session_state.get('uploaded_image') != uploaded_file:
+            st.session_state['uploaded_image'] = uploaded_file
+            st.session_state['prediction'] = None
+    elif st.session_state.get('uploaded_image'):
+        uploaded_file = st.session_state['uploaded_image']
+    else:
+        uploaded_file = None
+
+with col2:
+    if uploaded_file:
+        image = Image.open(uploaded_file).convert('RGB')
+        st.image(image, caption='Imagen cargada.', width=240)
+
+# Predicción
+if predict_button and uploaded_file:
+    image = Image.open(uploaded_file).convert('RGB')
+    input_tensor = transform(image)
+    input_batch = input_tensor.unsqueeze(0)  # Mini-batch
+
+    with torch.no_grad():
+        output = model(input_batch)
+        prob = output.item()  # valor entre 0 y 1
+        if prob > 0.5:
+            predicted_class = "Tumor"
+            confidence = prob
+        else:
+            predicted_class = "Healthy"
+            confidence = 1 - prob
+
+    # Guardar en estado de sesión
+    st.session_state['prediction'] = {
+        'class': predicted_class,
+        'confidence': confidence
+    }
+
+# Mostrar resultado
+if st.session_state.get('prediction'):
+    pred = st.session_state['prediction']
+    st.markdown(f"""
+    <div class="prediction-box">
+        <h3>Resultado de la Predicción:</h3>
+        <p><strong>{pred['class']}</strong> con confianza <strong>{pred['confidence']*100:.2f}%</strong></p>
+    </div>
+    """, unsafe_allow_html=True)
   
