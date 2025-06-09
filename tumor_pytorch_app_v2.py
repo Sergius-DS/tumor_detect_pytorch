@@ -21,7 +21,7 @@ def set_background(image_path):
     <style>
     .stApp {{
         background-image: url("data:image/jpeg;base64,{b64_image}");
-        background-size: contain;
+        background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         background-attachment: fixed;
