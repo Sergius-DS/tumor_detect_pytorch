@@ -8,7 +8,7 @@ from torchvision import models, transforms
 from PIL import Image
 
 # Path to your background image
-background_image_path = "medical_laboratory.jpg"
+background_image_path = "medical_pytorch.jpg"
 
 # Function to set background (unchanged)
 def get_base64_image(image_path):
