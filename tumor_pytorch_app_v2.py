@@ -96,6 +96,15 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+# Añadir CSS para cambiar el color del texto del file uploader a blanco
+st.markdown("""
+<style>
+div.stFileUploader > div > div:nth-child(1) > p {
+    color: white !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 col1, col2 = st.columns([1, 1])
 
 with col1:
