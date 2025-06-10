@@ -42,6 +42,12 @@ def set_background(image_path):
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         text-align: center;
     }}
+    /* Modifica aquí el fondo del uploader a blanco sólido */
+    .stFileUploader > div {{
+        background-color: #ffffff; /* Blanco sólido */
+        padding: 10px;
+        border-radius: 8px;
+    }}
     .stFileUploader > div {{
         background-color: rgba(255, 255, 255, 0.9);
         padding: 10px;
