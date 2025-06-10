@@ -122,18 +122,18 @@ with col1:
 
 with col2:
     if uploaded_file:
-    image = Image.open(uploaded_file).convert('RGB')
-    # Save the image temporarily to embed in HTML
-    with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmp_img:
-        image.save(tmp_img.name)
-        img_path = tmp_img.name
-
-    st.markdown(f"""
-    <div style="text-align: center;">
-        <img src="file://{img_path}" width="240" style="border: 2px solid #ccc; border-radius: 8px;">
-        <p style="color: white; font-weight: bold;">Imagen cargada.</p>
-    </div>
-    """, unsafe_allow_html=True)
+        image = Image.open(uploaded_file).convert('RGB')
+        # Save the image temporarily to embed in HTML
+        with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmp_img:
+            image.save(tmp_img.name)
+            img_path = tmp_img.name
+    
+        st.markdown(f"""
+        <div style="text-align: center;">
+            <img src="file://{img_path}" width="240" style="border: 2px solid #ccc; border-radius: 8px;">
+            <p style="color: white; font-weight: bold;">Imagen cargada.</p>
+        </div>
+        """, unsafe_allow_html=True)
     #if uploaded_file:
         #image = Image.open(uploaded_file).convert('RGB')
         #st.image(image, caption='Imagen cargada.', width=240)
