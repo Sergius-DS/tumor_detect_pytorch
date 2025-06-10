@@ -126,7 +126,7 @@ with col2:
         # Display image
         st.image(image, width=240)
         # Add custom caption with white font
-        st.markdown(f"<p style='color: white; font-weight: bold;'>Imagen cargada.</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color: white;'>Imagen cargada.</p>", unsafe_allow_html=True)
     #if uploaded_file:
         #image = Image.open(uploaded_file).convert('RGB')
         #st.image(image, caption='Imagen cargada.', width=240)
