@@ -99,7 +99,7 @@ st.markdown("""
 # Añadir CSS para cambiar el color del texto del file uploader a blanco
 st.markdown("""
 <style>
-div.stFileUploader > div > div:nth-child(1) > p {
+div.stFileUploader p {
     color: white !important;
 }
 </style>
