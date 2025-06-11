@@ -18,7 +18,7 @@ https://tumordetectpytorch-mjjigzzap9ihnrgnarsncp.streamlit.app/
 
 | Modelo Clasificador Detectando Paciente Sano                                                              | 
 | ----------------------------------------------------------------------------------------------- |
-| <img src="gifs/tennis_animation_4.gif" alt="Interface Animation"  width="100%" /> |
+| <img src="gifs/healthy_compressed.gif" alt="Interface Animation"  width="100%" /> |
 
 
 ## 🚀 Estructura del Proyecto por Bloques
