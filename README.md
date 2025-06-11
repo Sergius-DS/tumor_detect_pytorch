@@ -13,7 +13,7 @@ https://tumordetectpytorch-mjjigzzap9ihnrgnarsncp.streamlit.app/
 
 | Modelo Clasificador Detectando Paciente con Tumor                                                         | 
 | ----------------------------------------------------------------------------------------------- |
-| <img src="gifs/tennis_animation_3.gif" alt="Interface Animation"  width="100%" /> |
+| <img src="gifs/tumor_compressed.gif" alt="Interface Animation"  width="100%" /> |
 
 
 | Modelo Clasificador Detectando Paciente Sano                                                              | 
