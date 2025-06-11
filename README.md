@@ -1,6 +1,6 @@
 # Clasificación de Imágenes Médicas con ResNet50 🧠🔬
 
-Este repositorio documenta un proyecto para la clasificación de imágenes médicas, distinguiendo entre imágenes "Healthy" y con "Tumor". Se utiliza un modelo de Deep Learning basado en la arquitectura ResNet50, implementado con TensorFlow y Keras. El flujo de trabajo sigue una estructura clara desde la preparación de los datos hasta la evaluación del modelo.
+Este repositorio documenta un proyecto para la clasificación de imágenes médicas, distinguiendo entre imágenes "Healthy" y con "Tumor". Se utiliza un modelo de Deep Learning basado en la arquitectura ResNet50, implementado con Pytorch. El flujo de trabajo sigue una estructura clara desde la preparación de los datos hasta la evaluación del modelo.
 
 Las imagenes utilizadas para el entrenamiento se encuentra en el siguiente repositorio de Kaggle:
 https://www.kaggle.com/datasets/hghdhygf/brain-tumor-mri-image-dataset
@@ -9,6 +9,17 @@ Pueden visualizar como funciona nuestro clasificador en la siguiente página de 
 https://tumordetectpytorch-mjjigzzap9ihnrgnarsncp.streamlit.app/
 
 ---
+## Demo de Uso de la Aplicación para Predecir MRI
+
+| Modelo Clasificador Detectando Paciente con Tumor                                                         | 
+| ----------------------------------------------------------------------------------------------- |
+| <img src="gifs/tennis_animation_3.gif" alt="Interface Animation"  width="100%" /> |
+
+
+| Modelo Clasificador Detectando Paciente Sano                                                              | 
+| ----------------------------------------------------------------------------------------------- |
+| <img src="gifs/tennis_animation_4.gif" alt="Interface Animation"  width="100%" /> |
+
 
 ## 🚀 Estructura del Proyecto por Bloques
 
@@ -16,7 +27,7 @@ El proyecto se organiza en cuatro bloques funcionales principales:
 
 ### Bloque 1: **Configuración Inicial y Carga de Datos** 📂
 Esta fase establece el entorno básico y carga el conjunto de datos de imágenes.
-- Se preparan las herramientas necesarias, siendo **TensorFlow** el framework principal para el modelado.
+- Se preparan las herramientas necesarias, siendo **Pytorch** el framework principal para el modelado.
 - Las imágenes se cargan desde un sistema de archivos estructurado, donde las rutas y sus correspondientes etiquetas (ej. "Healthy", "Tumor") se organizan en un formato manejable, típicamente un DataFrame de Pandas.
 
 ### Bloque 2: **Preprocesamiento y Generadores de Imágenes** 🖼️➡️🔢
