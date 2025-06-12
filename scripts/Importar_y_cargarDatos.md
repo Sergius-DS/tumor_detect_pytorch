@@ -22,8 +22,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 ```
 # Configuración para la visualización y uso de GPU si está disponible
+```python
 sns.set_style("whitegrid")
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+```
 
 ## 1.2 Definición de Rutas y Carga de Datos
 Las imágenes están almacenadas en un directorio local, organizado en subcarpetas por categorías (clases). En este ejemplo, las categorías son "Healthy" y "Tumor".
