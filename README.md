@@ -64,7 +64,7 @@ Finalmente, se evalúa el rendimiento del modelo entrenado utilizando el conjunt
 1.  **Clona el repositorio**:
     ```bash
     git clone https://github.com/Sergius-DS/tumor_detect_pytorch.git
-    cd ML_Brain_Tumor_Detection
+    cd tumor_detect_pytorch
     ```
 
 2.  **Configura tu Entorno**:
