@@ -74,8 +74,8 @@ Finalmente, se evalúa el rendimiento del modelo entrenado utilizando el conjunt
     *   Organiza tus imágenes en una carpeta `images` (o según se especifique en el script) con subcarpetas por categoría (ej. `images/Healthy/`, `images/Tumor/`).
 
 4.  **Ejecuta el Script Principal**:
-    *   Revisa y ajusta las configuraciones en el script de Python si es necesario.
-    *   Ejecuta el script:
+    *   Revisa y ajusta las configuraciones en el archivo Brain_Tumor_ResNet.py según tus necesidades (como rutas, parámetros de entrenamiento, etc.).
+    *   Ejecuta el script completo, que integre todos los bloques del proceso:
         ```bash
         python3 Brain_Tumor_ResNet.py
         ```
