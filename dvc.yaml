@@ -1,0 +1,36 @@
+stages:
+  prepare_data:
+    cmd: python scripts/load_data.py --save_processed
+    deps:
+      - scripts/load_data.py
+      - images/
+    outs:
+      - data/train_dataset.pkl
+      - data/valid_dataset.pkl
+      - data/test_dataset.pkl
+      - data/label_encoder.pkl
+
+  train_model:
+    cmd: python scripts/train.py --save_model
+    deps:
+      - scripts/train.py
+      - scripts/model.py
+      - data/train_dataset.pkl
+      - data/valid_dataset.pkl
+    outs:
+      - models/best_model_final.pth
+      - results/training_history.pkl
+
+  evaluate:
+    cmd: python scripts/evaluate.py --output_dir results/
+    deps:
+      - scripts/evaluate.py
+      - scripts/model.py
+      - data/test_dataset.pkl
+      - data/label_encoder.pkl
+      - models/best_model_final.pth
+      - results/training_history.pkl
+    outs:
+      - results/confusion_matrix.png
+      - results/roc_curve.png
+      - results/training_history_plot.png
