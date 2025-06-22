@@ -89,8 +89,8 @@ Finalmente, se evalúa el rendimiento del modelo entrenado utilizando el conjunt
     Luego, con un solo comando, ejecutas toda la pipeline, asegurando reproducibilidad.
     Ejemplo básico de pipeline DVC:
     
-        `yaml
-        dvc repro prepare_data
+        `
+            dvc repro prepare_data
         `
 
 5.  **Revisa los Resultados**:
