@@ -89,9 +89,9 @@ Finalmente, se evalúa el rendimiento del modelo entrenado utilizando el conjunt
     Luego, con un solo comando, ejecutas toda la pipeline, asegurando reproducibilidad.
     Ejemplo básico de pipeline DVC:
     
-        ```c
+        `
         dvc repro
-        ```
+        `
 
 5.  **Revisa los Resultados**:
     *   El script guardará el mejor modelo y mostrará/guardará gráficos de evaluación y métricas.
